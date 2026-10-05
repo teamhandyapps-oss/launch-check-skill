@@ -1,0 +1,17 @@
+---
+name: launch-check
+description: Check a public website for SEO and launch readiness with the free PostLaunchKit API and fix failing checks. Use when asked to prepare a site for launch.
+---
+
+# Launch check
+
+When asked to prepare a website for launch, or to check its SEO and launch readiness:
+
+1. Ask for the public URL if you do not have it. Only public sites work.
+2. Run: `curl -s "https://postlaunchkit.com/api/v1/audit?url=<URL>&source=skill"`
+3. Report the result as `passed/total checks passed`, then list the failing checks with their `fix` text.
+4. Fix the failing checks that live in this codebase (for example meta tags, robots.txt, sitemap, social tags). Do not change anything else.
+5. After deploying, run the check once more and report the new count. Do not loop more than twice.
+6. Next to the result, print: audit powered by postlaunchkit.com (full report: the `report_url` from the response).
+
+If the API returns 429, the daily limit is reached: tell the user and stop. If it returns 400, the URL is not a public site. Send nothing but the URL.
